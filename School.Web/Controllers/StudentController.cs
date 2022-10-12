@@ -34,6 +34,10 @@ namespace School.Web.Controllers
               },
             };
 
+            List<Student> studentsList = new List<Student>();
+
+            
+
 
             return View(students);
         }
