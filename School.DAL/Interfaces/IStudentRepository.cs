@@ -1,4 +1,5 @@
 ﻿using School.DAL.Entities;
+using System.Collections.Generic;
 
 namespace School.DAL.Interfaces
 {
@@ -9,6 +10,7 @@ namespace School.DAL.Interfaces
         void Remove(Student student);
         Student GetStudent(int studentId);
         bool Exists(int studentId);
+        IEnumerable<Student> GetStudnets();
 
     }
 }

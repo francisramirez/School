@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using School.DAL.Interfaces;
 using School.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -10,34 +11,23 @@ namespace School.Web.Controllers
 {
     public class StudentController : Controller
     {
+        private readonly IStudentRepository studentRepository;
+
+        public StudentController(IStudentRepository studentRepository)
+        {
+            this.studentRepository = studentRepository;
+        }
+
         // GET: StudentController
         public ActionResult Index()
         {
-            IEnumerable<Student> students = new List<Student>()
+            var students = this.studentRepository.GetStudnets().ToList().Select(st => new Models.Student()
             {
-                new Student 
-                {  
-                    CourseId = 1, 
-                    Discriminator = "S", 
-                    EnrollmentDate = DateTime.Now, 
-                    FirstName ="Jose", 
-                    LastName ="Perez", 
-                    Grade = 80
-                },
-                new Student {     
-                    CourseId = 2,
-                    Discriminator = "P",
-                    EnrollmentDate = DateTime.Now,
-                    FirstName ="Juan", 
-                    LastName ="De Leon", 
-                    Grade = 80
-              },
-            };
-
-            List<Student> studentsList = new List<Student>();
-
-            
-
+                PersonID = st.Id,
+                FirstName = st.FirstName,
+                LastName = st.LastName,
+                EnrollmentDate = st.EnrollmentDate
+            });
 
             return View(students);
         }
@@ -57,10 +47,20 @@ namespace School.Web.Controllers
         // POST: StudentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Student student)
+        public ActionResult Create(Student studentModel)
         {
             try
             {
+                School.DAL.Entities.Student myStudent = new DAL.Entities.Student()
+                {
+                    CreationUser= 1,
+                    FirstName = studentModel.FirstName,
+                    EnrollmentDate = studentModel.EnrollmentDate,
+                    LastName = studentModel.LastName,
+                    Id = studentModel.PersonID
+                };
+
+                studentRepository.Save(myStudent);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -73,16 +73,41 @@ namespace School.Web.Controllers
         // GET: StudentController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            var student = studentRepository.GetStudent(id);
+
+            Models.Student Modelstudent = new Models.Student()
+            {
+                PersonID = student.Id,
+                EnrollmentDate = student.EnrollmentDate,
+                FirstName = student.FirstName,
+                LastName = student.LastName
+            };
+
+            return View(Modelstudent);
         }
 
         // POST: StudentController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Models.Student studentModel)
         {
             try
             {
+                var myModel = studentModel;
+
+                School.DAL.Entities.Student student = new DAL.Entities.Student()
+                {
+                    ModifyDate = DateTime.Now,
+                    UserMod = 1,
+                    FirstName = studentModel.FirstName,
+                    EnrollmentDate = studentModel.EnrollmentDate,
+                    LastName = studentModel.LastName,
+                    Id = studentModel.PersonID
+                };
+
+                studentRepository.Update(student);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
