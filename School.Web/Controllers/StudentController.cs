@@ -19,7 +19,7 @@ namespace School.Web.Controllers
         // GET: StudentController
         public ActionResult Index()
         {
-            var students = this.studentRepository.GetStudnets().ToList().Select(st => new Models.Student()
+            var students = this.studentRepository.GetEntities().ToList().Select(st => new Models.Student()
             {
                 PersonID = st.Id,
                 FirstName = st.FirstName,
@@ -72,7 +72,7 @@ namespace School.Web.Controllers
         public ActionResult Edit(int id)
         {
 
-            var student = studentRepository.GetStudent(id);
+            var student = studentRepository.GetEntity(id);
 
             Models.Student Modelstudent = new Models.Student()
             {

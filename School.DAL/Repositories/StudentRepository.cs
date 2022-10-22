@@ -11,7 +11,8 @@ namespace School.DAL.Repositories
     {
         private readonly SchoolContext context;
         private readonly ILogger<StudentRepository> logger;
-        public StudentRepository(SchoolContext context, ILogger<StudentRepository> logger)
+        public StudentRepository(SchoolContext context, 
+                                 ILogger<StudentRepository> logger)
         {
             this.context = context;
             this.logger = logger;
@@ -20,13 +21,13 @@ namespace School.DAL.Repositories
         {
             return context.Students.Any(cd => cd.Id == studentId);
         }
-        public Student GetStudent(int studentId)
-        {
-            return context.Students.Find(studentId);
-        }
-        public IEnumerable<Student> GetStudnets()
+        public IEnumerable<Student> GetEntities()
         {
             return context.Students.OrderByDescending(st => st.CreationDate);
+        }
+        public Student GetEntity(int studentId)
+        {
+            return context.Students.Find(studentId);
         }
         public void Remove(Student student)
         {
@@ -41,7 +42,7 @@ namespace School.DAL.Repositories
         {
             try
             {
-                Student studentToModify = GetStudent(student.Id);
+                Student studentToModify = GetEntity(student.Id);
 
                 studentToModify.FirstName = student.FirstName;
                 studentToModify.LastName = student.LastName;

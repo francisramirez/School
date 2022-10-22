@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Services", "School.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Conceptual", "School.Conceptual\School.Conceptual.csproj", "{D654F3B2-407D-40C3-B3E1-B66F2FF5CEC5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prueba", "Prueba", "{E3CE6524-5583-41C4-BA07-98005C5B5CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Test", "School.Test\School.Test.csproj", "{BC4ADA9D-B3BE-410E-8847-C2937EECC805}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{D654F3B2-407D-40C3-B3E1-B66F2FF5CEC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D654F3B2-407D-40C3-B3E1-B66F2FF5CEC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D654F3B2-407D-40C3-B3E1-B66F2FF5CEC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC4ADA9D-B3BE-410E-8847-C2937EECC805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4ADA9D-B3BE-410E-8847-C2937EECC805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC4ADA9D-B3BE-410E-8847-C2937EECC805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC4ADA9D-B3BE-410E-8847-C2937EECC805}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,7 @@ Global
 		{B0DC3668-93E4-42EE-AEB9-8598D90206E5} = {8EEB7379-1335-49D1-9379-CB19BAB4F2DE}
 		{12EC6216-7F04-4A8C-A534-415F041289FF} = {FEE8FE97-D7A2-45CB-8071-F754229EF9B4}
 		{D654F3B2-407D-40C3-B3E1-B66F2FF5CEC5} = {8EEB7379-1335-49D1-9379-CB19BAB4F2DE}
+		{BC4ADA9D-B3BE-410E-8847-C2937EECC805} = {E3CE6524-5583-41C4-BA07-98005C5B5CEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5FC0DA4-13EC-46A0-9022-01C80C78284D}

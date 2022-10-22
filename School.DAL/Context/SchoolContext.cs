@@ -3,6 +3,7 @@ using School.DAL.Entities;
 
 namespace School.DAL.Context
 {
+
     public partial class SchoolContext : DbContext
     {
         public SchoolContext()
@@ -13,6 +14,11 @@ namespace School.DAL.Context
         {
 
         }
-        public DbSet<Student> Students  { get; set; }
+
+        #region "Entities"
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        #endregion
+
     }
 }
