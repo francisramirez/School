@@ -5,6 +5,8 @@ using School.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+
 namespace School.DAL.Repositories
 {
     public class StudentRepository : IStudentRepository
@@ -17,10 +19,11 @@ namespace School.DAL.Repositories
             this.context = context;
             this.logger = logger;
         }
-        public bool Exists(int studentId)
+        public bool Exists(Expression<Func<Student, bool>> filter)
         {
-            return context.Students.Any(cd => cd.Id == studentId);
+            return context.Students.Any(filter);
         }
+
         public IEnumerable<Student> GetEntities()
         {
             return context.Students.OrderByDescending(st => st.CreationDate);
