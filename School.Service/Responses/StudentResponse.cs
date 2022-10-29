@@ -1,6 +1,6 @@
 ﻿namespace School.Service.Responses
 {
-    public class StudentResponse : Core.ServiceResult
+    public class StudentSaveResponse : Core.ServiceResult
     {
         public string Matricula { get; set; }
     }

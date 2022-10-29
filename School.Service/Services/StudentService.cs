@@ -13,7 +13,8 @@ namespace School.Service.Services
     {
         private readonly IStudentRepository studentRepository;
         private readonly ILogger<StudentService> logger;
-        public StudentService(IStudentRepository studentRepository, ILogger<StudentService> logger)
+        public StudentService(IStudentRepository studentRepository, 
+                              ILogger<StudentService> logger)
         {
             this.studentRepository = studentRepository;
             this.logger = logger;
@@ -75,9 +76,9 @@ namespace School.Service.Services
 
             return result;
         }
-        public StudentResponse SaveStudent(StudentSaveDto studentSaveDto)
+        public StudentSaveResponse SaveStudent(StudentSaveDto studentSaveDto)
         {
-            StudentResponse result = new StudentResponse();
+            StudentSaveResponse result = new StudentSaveResponse();
 
             try
             {
@@ -152,9 +153,9 @@ namespace School.Service.Services
             }
             return result;
         }
-        public StudentResponse UpdateStudent(StudentUpdateDto studentSaveDto)
+        public StudentUpdateResponse UpdateStudent(StudentUpdateDto studentSaveDto)
         {
-            StudentResponse result = new StudentResponse();
+            StudentUpdateResponse result = new StudentUpdateResponse();
 
             try
             {
