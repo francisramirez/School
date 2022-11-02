@@ -34,7 +34,7 @@ namespace School.Service.Services
                     EnrollmentDateDisplay = st.EnrollmentDate.Value.ToString("dd/mm/yyyy"),
                     FirstName = st.FirstName,
                     LastName = st.LastName
-                });
+                }).ToList();
 
             }
             catch (Exception ex)

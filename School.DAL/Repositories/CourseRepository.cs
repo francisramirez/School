@@ -5,6 +5,8 @@ using School.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+
 namespace School.DAL.Repositories
 {
     public class CourseRepository : ICourseRepository
@@ -22,6 +24,12 @@ namespace School.DAL.Repositories
         {
             return context.Courses.Any(cd => cd.CourseID == courseId);
         }
+
+        public bool Exists(Expression<Func<Course, bool>> filter)
+        {
+            return this.context.Courses.Any(filter);
+        }
+
         public IEnumerable<Course> GetEntities()
         {
             return context.Courses.OrderByDescending(st => st.CreationDate);

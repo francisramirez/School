@@ -7,11 +7,9 @@ using Microsoft.Extensions.Hosting;
 using School.DAL.Context;
 using School.DAL.Interfaces;
 using School.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+using School.Service.Contracts;
+using School.Service.Services;
+using School.Web.Dependencies;
 namespace School.Web
 {
     public class Startup
@@ -29,11 +27,16 @@ namespace School.Web
             // Context //
             services.AddDbContext<SchoolContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("SchoolContext")));
 
+            // Student Dependencies //
+            //services.AddStudentDependency();
+
             //Repositories
             services.AddScoped<IStudentRepository, StudentRepository>();
-            
+
             //Services(BL)//
-            
+            services.AddTransient<IStudentService, StudentService>();
+
+
             services.AddControllersWithViews();
         }
 

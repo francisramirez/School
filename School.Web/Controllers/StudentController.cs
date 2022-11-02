@@ -1,31 +1,27 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using School.DAL.Interfaces;
+using School.Service.Contracts;
 using School.Web.Models;
-using System;
-using System.Linq;
-
+using System.Collections.Generic;
+using School.Web.Extentions;
 namespace School.Web.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IStudentRepository studentRepository;
+        private readonly IStudentService _studentService;
 
-        public StudentController(IStudentRepository studentRepository)
+        public StudentController(IStudentService studentService)
         {
-            this.studentRepository = studentRepository;
+            _studentService = studentService;
         }
 
         // GET: StudentController
         public ActionResult Index()
         {
-            var students = this.studentRepository.GetEntities().ToList().Select(st => new Models.Student()
-            {
-                PersonID = st.Id,
-                FirstName = st.FirstName,
-                LastName = st.LastName,
-                EnrollmentDate = st.EnrollmentDate
-            });
+            var students = ((List<Service.Models.StudentModel>)_studentService.GetStudents().Data).ConvertStudentModelToModel();
+            
+            ///var students = StudentExtentions.GetStudents(mystudents);
+                                                                         
 
             return View(students);
         }
@@ -49,16 +45,16 @@ namespace School.Web.Controllers
         {
             try
             {
-                School.DAL.Entities.Student myStudent = new DAL.Entities.Student()
-                {
-                    CreationUser= 1,
-                    FirstName = studentModel.FirstName,
-                    EnrollmentDate = studentModel.EnrollmentDate,
-                    LastName = studentModel.LastName,
-                    Id = studentModel.PersonID
-                };
+                //School.DAL.Entities.Student myStudent = new DAL.Entities.Student()
+                //{
+                //    CreationUser= 1,
+                //    FirstName = studentModel.FirstName,
+                //    EnrollmentDate = studentModel.EnrollmentDate,
+                //    LastName = studentModel.LastName,
+                //    Id = studentModel.PersonID
+                //};
 
-                studentRepository.Save(myStudent);
+                //studentRepository.Save(myStudent);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -72,17 +68,17 @@ namespace School.Web.Controllers
         public ActionResult Edit(int id)
         {
 
-            var student = studentRepository.GetEntity(id);
+            //var student = studentRepository.GetEntity(id);
 
-            Models.Student Modelstudent = new Models.Student()
-            {
-                PersonID = student.Id,
-                EnrollmentDate = student.EnrollmentDate,
-                FirstName = student.FirstName,
-                LastName = student.LastName
-            };
+            //Models.Student Modelstudent = new Models.Student()
+            //{
+            //    PersonID = student.Id,
+            //    EnrollmentDate = student.EnrollmentDate,
+            //    FirstName = student.FirstName,
+            //    LastName = student.LastName
+            //};
 
-            return View(Modelstudent);
+            return View();
         }
 
         // POST: StudentController/Edit/5
@@ -94,17 +90,17 @@ namespace School.Web.Controllers
             {
                 var myModel = studentModel;
 
-                School.DAL.Entities.Student student = new DAL.Entities.Student()
-                {
-                    ModifyDate = DateTime.Now,
-                    UserMod = 1,
-                    FirstName = studentModel.FirstName,
-                    EnrollmentDate = studentModel.EnrollmentDate,
-                    LastName = studentModel.LastName,
-                    Id = studentModel.PersonID
-                };
+                //School.DAL.Entities.Student student = new DAL.Entities.Student()
+                //{
+                //    ModifyDate = DateTime.Now,
+                //    UserMod = 1,
+                //    FirstName = studentModel.FirstName,
+                //    EnrollmentDate = studentModel.EnrollmentDate,
+                //    LastName = studentModel.LastName,
+                //    Id = studentModel.PersonID
+                //};
 
-                studentRepository.Update(student);
+                //studentRepository.Update(student);
 
                 return RedirectToAction(nameof(Index));
             }
