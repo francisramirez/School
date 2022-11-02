@@ -19,7 +19,8 @@ namespace School.Service.Services
             this.studentRepository = studentRepository;
             this.logger = logger;
         }
-        public ServiceResult GetStudents()
+
+        public ServiceResult Gets()
         {
             ServiceResult result = new ServiceResult();
 
@@ -46,6 +47,7 @@ namespace School.Service.Services
 
             return result;
         }
+        
         public ServiceResult GetStudentsGrades()
         {
             throw new System.NotImplementedException();
@@ -84,66 +86,42 @@ namespace School.Service.Services
             {
                 // Validar los campos requeridos y logitudes //
 
-                if (string.IsNullOrEmpty(studentSaveDto.FirstName))
+                var resutlIsValid = IsValidStudent(studentSaveDto);
+
+                if (resutlIsValid.Success)
                 {
-                    result.Success = false;
-                    result.Message = "El nombre del estudiante es requerido.";
+                    // Verificar si el estudiante esta inscripto //
+                    if (studentRepository.Exists(st => st.FirstName == studentSaveDto.FirstName
+                                                    && st.LastName == studentSaveDto.LastName
+                                                    && st.EnrollmentDate.Value.Date == studentSaveDto.EnrollmentDate.Value.Date
+                                                    ))
+                    {
+                        result.Success = false;
+                        result.Message = "Este estudiante ya se encuentra registrado.";
+                        return result;
+                    }
+
+                    DAL.Entities.Student studentToAdd = new DAL.Entities.Student()
+                    {
+                        LastName = studentSaveDto.LastName,
+                        EnrollmentDate = studentSaveDto.EnrollmentDate,
+                        FirstName = studentSaveDto.FirstName,
+                        CreationDate = DateTime.Now,
+                        CreationUser = studentSaveDto.UserId
+                    };
+
+                    studentRepository.Save(studentToAdd);
+
+                    result.Matricula = studentToAdd.Id.ToString();
+
+                    result.Message = "Estudiante agregado correctamente";
+                }
+                else 
+                {
+                    result.Success = resutlIsValid.Success;
+                    result.Message = resutlIsValid.Message;
                     return result;
                 }
-
-                if (string.IsNullOrEmpty(studentSaveDto.LastName))
-                {
-                    result.Success = false;
-                    result.Message = "El apellido del estudiante es requerido.";
-                    return result;
-                }
-
-                if (!studentSaveDto.EnrollmentDate.HasValue)
-                {
-                    result.Success = false;
-                    result.Message = "La fecha de inscripción es requerida.";
-                    return result;
-                }
-
-                if (studentSaveDto.FirstName.Length > 50)
-                {
-                    result.Success = false;
-                    result.Message = "La longitud del nombre es inválida.";
-                    return result;
-                }
-
-                if (studentSaveDto.LastName.Length > 50)
-                {
-                    result.Success = false;
-                    result.Message = "La longitud del apellido es inválida.";
-                    return result;
-                }
-
-                // Verificar si el estudiante esta inscripto //
-                if (studentRepository.Exists(st => st.FirstName == studentSaveDto.FirstName
-                                                && st.LastName == studentSaveDto.LastName
-                                                && st.EnrollmentDate.Value.Date == studentSaveDto.EnrollmentDate.Value.Date
-                                                ))
-                {
-                    result.Success = false;
-                    result.Message = "Este estudiante ya se encuentra registrado.";
-                    return result;
-                }
-
-                DAL.Entities.Student studentToAdd = new DAL.Entities.Student()
-                {
-                    LastName = studentSaveDto.LastName,
-                    EnrollmentDate = studentSaveDto.EnrollmentDate,
-                    FirstName = studentSaveDto.FirstName,
-                    CreationDate = DateTime.Now,
-                    CreationUser = studentSaveDto.CreationUser
-                };
-
-                studentRepository.Save(studentToAdd);
-
-                result.Matricula = studentToAdd.Id.ToString();
-
-                result.Message = "Estudiante agregado correctamente";
             }
             catch (Exception ex)
             {
@@ -161,46 +139,29 @@ namespace School.Service.Services
             {
                 // Validar los campos requeridos y logitudes //
 
-                if (string.IsNullOrEmpty(studentSaveDto.FirstName))
+                var resultIsValid = IsValidStudent(studentSaveDto);
+
+                if (resultIsValid.Success)
+                {
+                    DAL.Entities.Student studentToUpdate = studentRepository.GetEntity(studentSaveDto.Id); // Se busca el estudiante a actualizar //
+
+                    studentToUpdate.FirstName = studentSaveDto.FirstName;
+                    studentToUpdate.LastName = studentSaveDto.LastName;
+                    studentToUpdate.EnrollmentDate = studentSaveDto.EnrollmentDate;
+                    studentToUpdate.ModifyDate = DateTime.Now;
+                    studentToUpdate.UserMod = studentSaveDto.UserId;
+                    studentToUpdate.Id = studentSaveDto.Id;
+
+                    studentRepository.Update(studentToUpdate);
+
+                    result.Message = "Estudiante actualizado correctamente";
+                }
+                else
                 {
                     result.Success = false;
-                    result.Message = "El nombre del estudiante es requerido.";
-                    return result;
+                    result.Message = resultIsValid.Message;
                 }
-
-                if (string.IsNullOrEmpty(studentSaveDto.LastName))
-                {
-                    result.Success = false;
-                    result.Message = "El apellido del estudiante es requerido.";
-                    return result;
-                }
-
-                if (studentSaveDto.FirstName.Length > 50)
-                {
-                    result.Success = false;
-                    result.Message = "La longitud del nombre es inválida.";
-                    return result;
-                }
-
-                if (studentSaveDto.LastName.Length > 50)
-                {
-                    result.Success = false;
-                    result.Message = "La longitud del apellido es inválida.";
-                    return result;
-                }
-
-                DAL.Entities.Student studentToUpdate = studentRepository.GetEntity(studentSaveDto.Id); // Se busca el estudiante a actualizar //
-
-                studentToUpdate.FirstName = studentSaveDto.FirstName;
-                studentToUpdate.LastName = studentSaveDto.LastName;
-                studentToUpdate.EnrollmentDate = studentSaveDto.EnrollmentDate;
-                studentToUpdate.ModifyDate = DateTime.Now;
-                studentToUpdate.UserMod = studentSaveDto.ModifyUser;
-                studentToUpdate.Id = studentSaveDto.Id;
-
-                studentRepository.Update(studentToUpdate);
-
-                result.Message = "Estudiante actualizado correctamente";
+                
             }
             catch (Exception ex)
             {
@@ -211,6 +172,47 @@ namespace School.Service.Services
 
             return result;
 
+        }
+        private ServiceResult IsValidStudent(DtoStudentBase dtoStudent) 
+        {
+            ServiceResult result = new ServiceResult();
+
+            if (string.IsNullOrEmpty(dtoStudent.FirstName))
+            {
+                result.Success = false;
+                result.Message = "El nombre del estudiante es requerido.";
+                return result;
+            }
+
+            if (string.IsNullOrEmpty(dtoStudent.LastName))
+            {
+                result.Success = false;
+                result.Message = "El apellido del estudiante es requerido.";
+                return result;
+            }
+
+            if (!dtoStudent.EnrollmentDate.HasValue)
+            {
+                result.Success = false;
+                result.Message = "La fecha de inscripción es requerida.";
+                return result;
+            }
+
+            if (dtoStudent.FirstName.Length > 50)
+            {
+                result.Success = false;
+                result.Message = "La longitud del nombre es inválida.";
+                return result;
+            }
+
+            if (dtoStudent.LastName.Length > 50)
+            {
+                result.Success = false;
+                result.Message = "La longitud del apellido es inválida.";
+                return result;
+            }
+
+            return result;
         }
     }
 }

@@ -4,13 +4,12 @@ using School.Service.Responses;
 
 namespace School.Service.Contracts
 {
-    public interface IStudentService 
+    public interface IStudentService : IBaseService
     {
         StudentSaveResponse SaveStudent(StudentSaveDto studentSaveDto);
         StudentUpdateResponse UpdateStudent(StudentUpdateDto studentSaveDto);
         ServiceResult RemoveStudent(StudentRemoveDto studentSaveDto);
         ServiceResult GetStudentsGrades();
-        ServiceResult GetStudents();
     }
 
 }

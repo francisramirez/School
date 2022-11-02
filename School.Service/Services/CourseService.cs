@@ -23,7 +23,13 @@ namespace School.Service.Services
             this.departmentRepository = departmentRepository;
             this.logger = logger;
         }
-        public ServiceResult GetCourses()
+        
+        public ServiceResult GetCoursesByDeparments()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ServiceResult Gets()
         {
             ServiceResult result = new ServiceResult();
             try
@@ -50,11 +56,6 @@ namespace School.Service.Services
                 this.logger.LogError(result.Message, ex.ToString());
             }
             return result;
-        }
-
-        public ServiceResult GetCoursesByDeparments()
-        {
-            throw new System.NotImplementedException();
         }
 
         public ServiceResult SaveCourse(SaveCourseDto saveCourseDto)
