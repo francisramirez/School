@@ -2,10 +2,9 @@
 
 namespace School.Service.Core
 {
-    public class DtoStudentBase : DtoAudit
+    public class DtoStudentBase : PersonDto
     {
         public DateTime? EnrollmentDate { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+      
     }
 }

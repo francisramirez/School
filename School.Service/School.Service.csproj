@@ -8,8 +8,4 @@
     <ProjectReference Include="..\School.DAL\School.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validations\" />
-  </ItemGroup>
-
 </Project>
