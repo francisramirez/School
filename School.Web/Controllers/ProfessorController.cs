@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using School.Service.Contracts;
 
 namespace School.Web.Controllers
 {
     public class ProfessorController : Controller
     {
+        private readonly IStudentService studentService;
+
+        public ProfessorController(IStudentService studentService)
+        {
+            this.studentService = studentService;
+        }
+
         // GET: ProfessorController
         public ActionResult Index()
         {
+            var restul = this.studentService.Gets();
             return View();
         }
 

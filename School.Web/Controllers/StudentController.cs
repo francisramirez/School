@@ -18,7 +18,8 @@ namespace School.Web.Controllers
         // GET: StudentController
         public ActionResult Index()
         {
-            var students = ((List<Service.Models.StudentModel>)_studentService.Gets().Data).ConvertStudentModelToModel();
+            var students = ((List<Service.Models.StudentModel>)_studentService.Gets().Data)
+                                                                              .ConvertStudentModelToModel();
 
             ///var students = StudentExtentions.GetStudents(mystudents);
 
@@ -68,17 +69,17 @@ namespace School.Web.Controllers
         public ActionResult Edit(int id)
         {
 
-            //var student = studentRepository.GetEntity(id);
+           var student =(Service.Models.StudentModel)_studentService.GetById(id).Data;
 
-            //Models.Student Modelstudent = new Models.Student()
-            //{
-            //    PersonID = student.Id,
-            //    EnrollmentDate = student.EnrollmentDate,
-            //    FirstName = student.FirstName,
-            //    LastName = student.LastName
-            //};
+            Models.Student Modelstudent = new Models.Student()
+            {
+                PersonID = student.Id,
+                EnrollmentDate = student.EnrollmentDate,
+                FirstName = student.FirstName,
+                LastName = student.LastName
+            };
 
-            return View();
+            return View(Modelstudent);
         }
 
         // POST: StudentController/Edit/5

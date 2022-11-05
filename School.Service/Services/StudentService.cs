@@ -3,6 +3,7 @@ using School.DAL.Interfaces;
 using School.Service.Contracts;
 using School.Service.Core;
 using School.Service.Dtos;
+using School.Service.Models;
 using School.Service.Responses;
 using School.Service.Validations;
 using System;
@@ -19,6 +20,34 @@ namespace School.Service.Services
         {
             this.studentRepository = studentRepository;
             this.logger = logger;
+        }
+
+        public ServiceResult GetById(int Id)
+        {
+            ServiceResult result = new ServiceResult();
+
+            try
+            {
+                DAL.Entities.Student student = studentRepository.GetEntity(Id);
+
+                StudentModel model = new StudentModel()
+                {
+                    EnrollmentDate = student.EnrollmentDate.Value,
+                    EnrollmentDateDisplay = student.EnrollmentDate.Value.ToString("dd/mm/yyyy"),
+                    FirstName = student.FirstName,
+                    Id = student.Id,
+                    LastName = student.LastName
+                };
+
+                result.Data = model;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Error obteniendo el estudiante del Id.";
+                this.logger.LogError(result.Message, ex.ToString());
+            }
+            return result;
         }
 
         public ServiceResult Gets()

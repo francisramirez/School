@@ -23,7 +23,12 @@ namespace School.Service.Services
             this.departmentRepository = departmentRepository;
             this.logger = logger;
         }
-        
+
+        public ServiceResult GetById(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ServiceResult GetCoursesByDeparments()
         {
             throw new System.NotImplementedException();
