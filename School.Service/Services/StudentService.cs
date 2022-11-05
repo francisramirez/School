@@ -49,7 +49,6 @@ namespace School.Service.Services
             }
             return result;
         }
-
         public ServiceResult Gets()
         {
             ServiceResult result = new ServiceResult();
