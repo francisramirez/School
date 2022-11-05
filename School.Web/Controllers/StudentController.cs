@@ -18,7 +18,7 @@ namespace School.Web.Controllers
         // GET: StudentController
         public ActionResult Index()
         {
-            var students = ((List<Service.Models.StudentModel>)_studentService.Gets().Data)
+            var students = ((List<Service.Models.StudentModel>)_studentService.GetAll().Data)
                                                                               .ConvertStudentModelToModel();
 
             ///var students = StudentExtentions.GetStudents(mystudents);
