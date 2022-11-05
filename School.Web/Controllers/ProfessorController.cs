@@ -16,7 +16,6 @@ namespace School.Web.Controllers
         // GET: ProfessorController
         public ActionResult Index()
         {
-            var restul = this.studentService.Gets();
             return View();
         }
 

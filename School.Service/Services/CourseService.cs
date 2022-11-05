@@ -34,7 +34,7 @@ namespace School.Service.Services
             throw new System.NotImplementedException();
         }
 
-        public ServiceResult Gets()
+        public ServiceResult GetAll()
         {
             ServiceResult result = new ServiceResult();
             try

@@ -2,7 +2,7 @@
 {
     public interface IBaseService
     {
-        ServiceResult Gets();
+        ServiceResult GetAll();
         ServiceResult GetById(int Id);
        
     }
