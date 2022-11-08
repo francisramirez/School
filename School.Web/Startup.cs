@@ -32,9 +32,12 @@ namespace School.Web
 
             //Repositories
             services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
 
             //Services(BL)//
             services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ICourseService, CourseService>();
 
 
             services.AddControllersWithViews();

@@ -12,8 +12,8 @@ namespace School.DAL.Repositories
     public class CourseRepository : ICourseRepository
     {
         private readonly SchoolContext context;
-        private readonly ILogger<StudentRepository> logger;
 
+        private readonly ILogger<StudentRepository> logger;
         public CourseRepository(SchoolContext context,
                                  ILogger<StudentRepository> logger)
         {
@@ -24,12 +24,10 @@ namespace School.DAL.Repositories
         {
             return context.Courses.Any(cd => cd.CourseID == courseId);
         }
-
         public bool Exists(Expression<Func<Course, bool>> filter)
         {
             return this.context.Courses.Any(filter);
         }
-
         public IEnumerable<Course> GetEntities()
         {
             return context.Courses.OrderByDescending(st => st.CreationDate);
