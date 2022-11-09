@@ -1,0 +1,46 @@
+﻿@page "/fetchdata"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Courses</h1>
+
+<p>Courses Lists</p>
+
+@if (courseLists == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Credits</th>
+                <th>Departament</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in courseLists)
+            {
+                <tr>
+                    <td>@course.Id</td>
+                    <td>@course.Name</td>
+                    <td>@course.Credits</td>
+                    <td>@course.Department</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+    private CourseList[] courseLists;
+
+    protected override async Task OnInitializedAsync()
+    {
+        courseLists = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}
