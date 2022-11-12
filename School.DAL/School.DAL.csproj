@@ -13,4 +13,19 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.30" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Core\BaseEntity.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>BaseEntity.cs.d.ts</LastGenOutput>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Core\BaseEntity.cs.d.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BaseEntity.cs</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>

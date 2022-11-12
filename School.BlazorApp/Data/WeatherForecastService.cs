@@ -29,9 +29,10 @@ namespace School.BlazorApp.Data
                 DepartmentId = co.DepartmentId,
                 Id = co.Id,
                 Name = co.Title
-            }).ToArray(); 
+            }).ToArray();
 
             return await Task.FromResult(courseLists);
-         
+
+        }
     }
 }
