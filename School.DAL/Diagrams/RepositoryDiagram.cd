@@ -11,7 +11,7 @@
   <Class Name="School.DAL.Repositories.CourseRepository">
     <Position X="6.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAQACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Repositories\CourseRepository.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -25,9 +25,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="School.DAL.Repositories.StudentRepository">
-    <Position X="4.25" Y="6.25" Width="1.5" />
+    <Position X="3.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQCAIAAAAAAAQACAAABBAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Repositories\StudentRepository.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

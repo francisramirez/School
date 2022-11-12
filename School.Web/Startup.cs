@@ -36,9 +36,8 @@ namespace School.Web
             services.AddScoped<ICourseRepository, CourseRepository>();
 
             //Services(BL)//
-            //services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ICourseService, CourseService>();
-
 
             services.AddControllersWithViews();
         }
