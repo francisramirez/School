@@ -18,6 +18,14 @@
       <Generator>DtsGenerator</Generator>
       <LastGenOutput>BaseEntity.cs.d.ts</LastGenOutput>
     </Compile>
+    <Compile Update="Core\Person.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Person.cs.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Update="Repositories\DepartmentRepository.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>DepartmentRepository.cs.d.ts</LastGenOutput>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +33,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>BaseEntity.cs</DependentUpon>
+    </None>
+    <None Update="Core\Person.cs.d.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Person.cs</DependentUpon>
+    </None>
+    <None Update="Repositories\DepartmentRepository.cs.d.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DepartmentRepository.cs</DependentUpon>
     </None>
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.Extensions.Logging;
+using School.DAL.Entities;
 using School.DAL.Interfaces;
 using School.Service.Contracts;
 using School.Service.Core;
@@ -62,10 +63,25 @@ namespace School.Service.Services
             }
             return result;
         }
-
         public ServiceResult SaveCourse(SaveCourseDto saveCourseDto)
         {
-            throw new System.NotImplementedException();
+            ServiceResult result = new ServiceResult();
+            
+            try
+            {
+                Course course = new Course()
+                {
+                    Credits = saveCourseDto.Credits,
+                    Title = saveCourseDto.Title, 
+                    DepartmentID = saveCourseDto.DepartmentId
+                };
+            }
+            catch (Exception ex)
+            {
+                result.Message = $"Error guardando el curso { ex.Message }";
+                this.logger.LogError(result.Message, ex.ToString());
+            }
+            return result;
         }
 
         public ServiceResult UpdateCourse(UpdateCourse studentSaveDto)
