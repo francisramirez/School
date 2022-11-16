@@ -5,8 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using School.DAL.Context;
+using School.DAL.Core;
+using School.DAL.DbFactory;
 using School.DAL.Interfaces;
 using School.DAL.Repositories;
+using School.DAL.UOW;
 using School.Service.Contracts;
 using School.Service.Services;
 using School.Web.Dependencies;
@@ -29,6 +32,11 @@ namespace School.Web
 
             // Student Dependencies //
             //services.AddStudentDependency();
+
+            // General Dependencies
+            services.AddScoped<IDbFactory, DbFactory>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(ILoggerService<>), typeof(LoggerService<>));
 
             //Repositories
             services.AddScoped<IStudentRepository, StudentRepository>();

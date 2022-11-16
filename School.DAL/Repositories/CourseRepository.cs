@@ -9,14 +9,14 @@ using System.Linq;
 
 namespace School.DAL.Repositories
 {
-    public class CourseRepository : Core.RepositoryBase<Course>,  ICourseRepository
+    public class CourseRepository : Core.RepositoryBase<Course>, ICourseRepository
     {
         private readonly SchoolContext context;
 
         private readonly ILogger<StudentRepository> logger;
         public CourseRepository(SchoolContext context,
                                  ILogger<StudentRepository> logger)
-            :base(context)
+            : base(new DbFactory.DbFactory(context))
         {
             this.context = context;
             this.logger = logger;

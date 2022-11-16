@@ -36,12 +36,12 @@ namespace School.Service.Validations
                 return result;
             }
 
-            if (string.IsNullOrEmpty(person.Email))
-            {
-                result.Success = false;
-                result.Message = "El correo electronico es requerido";
-                return result;
-            }
+            //if (string.IsNullOrEmpty(person.Email))
+            //{
+            //    result.Success = false;
+            //    result.Message = "El correo electronico es requerido";
+            //    return result;
+            //}
 
             return result;
         }
