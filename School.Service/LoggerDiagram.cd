@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="School.Service.Services.LoggerService&lt;TService&gt;">
+    <Position X="3" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CgAAAAAAAAAAAAACAAAAAAAAIAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\LoggerService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="School.Service.Contracts.ILoggerService&lt;TService&gt;">
+    <Position X="3" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CgAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\ILoggerService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

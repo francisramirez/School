@@ -1,33 +1,45 @@
-﻿
-
-using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Linq;
 using School.DAL.Entities;
 using School.DAL.Interfaces;
 using School.Service.Contracts;
 using School.Service.Core;
 using School.Service.Dtos;
-using System;
-using System.Linq;
 namespace School.Service.Services
 {
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository courseRespository;
         private readonly IDepartmentRepository departmentRepository;
-        private readonly ILogger<CourseService> logger;
+        private readonly ILoggerService<CourseService> loggerService;
 
         public CourseService(ICourseRepository courseRespository,
                               IDepartmentRepository departmentRepository,
-                              ILogger<CourseService> logger)
+                              ILoggerService<CourseService> loggerService 
+                              )
         {
             this.courseRespository = courseRespository;
             this.departmentRepository = departmentRepository;
-            this.logger = logger;
+            this.loggerService = loggerService;
         }
 
         public ServiceResult GetById(int Id)
         {
-            throw new NotImplementedException();
+            ServiceResult result = new ServiceResult();
+
+            try
+            {
+                result.Data = this.courseRespository.GetEntity(Id);
+            }
+            catch (Exception ex)
+            {
+
+                result.Success = false;
+                result.Message = "Ocurrio un error obteniendo el curso";
+                this.loggerService.LogError(result.Message, ex.ToString());
+            }
+
+            return result;
         }
 
         public ServiceResult GetCoursesByDeparments()
@@ -51,15 +63,13 @@ namespace School.Service.Services
                                  Title = course.Title
                              }).ToList();
 
-
-
                 result.Data = query;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Ocurrio un error obteniendo los cursos";
-                this.logger.LogError(result.Message, ex.ToString());
+                this.loggerService.LogError(result.Message, ex.ToString());
             }
             return result;
         }
@@ -79,7 +89,8 @@ namespace School.Service.Services
             catch (Exception ex)
             {
                 result.Message = $"Error guardando el curso { ex.Message }";
-                this.logger.LogError(result.Message, ex.ToString());
+                this.loggerService.LogError(result.Message, ex.ToString());
+
             }
             return result;
         }
