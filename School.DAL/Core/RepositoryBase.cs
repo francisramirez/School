@@ -23,6 +23,12 @@ namespace School.DAL.Core
             this.entities.Add(entity);
             this.dbContext.SaveChanges();
         }
+        public virtual void Save(TEntity[] entities)
+        {
+            this.entities.AddRange(entities);
+            this.dbContext.SaveChanges();
+        }
+
         public virtual void Update(TEntity entity)
         {
             this.entities.Update(entity);

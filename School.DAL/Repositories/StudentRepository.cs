@@ -17,8 +17,6 @@ namespace School.DAL.Repositories
             this.context = context;
             this.logger = logger;
         }
-     
-
-
+    
     }
 }
