@@ -8,7 +8,7 @@ using School.Service.Responses;
 using School.Service.Validations;
 using System;
 using System.Linq;
-
+using School.Service.Extentions;
 namespace School.Service.Services
 {
     public class StudentService : IStudentService
@@ -177,24 +177,17 @@ namespace School.Service.Services
             {
                 // Validar los campos requeridos y logitudes //
 
-                var resultIsValid = ValidationsPerson.IsValidPerson(studentSaveDto);
+                var resultIsValid = ValidationsPerson.IsValidPerson(studentSaveDto) ;
 
                 if (resultIsValid.Success)
                 {
 
                     if (studentSaveDto.EnrollmentDate.HasValue)
                     {
-                        DAL.Entities.Student studentToUpdate = studentRepository.GetEntity(studentSaveDto.Id); // Se busca el estudiante a actualizar //
-
-                        studentToUpdate.FirstName = studentSaveDto.FirstName;
-                        studentToUpdate.LastName = studentSaveDto.LastName;
-                        studentToUpdate.EnrollmentDate = studentSaveDto.EnrollmentDate;
-                        studentToUpdate.ModifyDate = DateTime.Now;
-                        studentToUpdate.UserMod = studentSaveDto.UserId;
-                        studentToUpdate.Id = studentSaveDto.Id;
+                        DAL.Entities.Student studentToUpdate = studentSaveDto.ConvertFromStudentUpdateDtoToStudentEntity();
 
                         studentRepository.Update(studentToUpdate);
-
+                        
                         result.Message = "Estudiante actualizado correctamente";
                     }
                     else

@@ -1,4 +1,5 @@
-﻿using School.Service.Contracts;
+﻿using Microsoft.Extensions.Logging;
+using School.Service.Contracts;
 using School.Service.Core;
 using School.Service.Dtos;
 
@@ -6,13 +7,25 @@ namespace School.Service.Services
 {
     public class ProfessorService : IProfessorService
     {
-        public ProfessorService()
-        {
+        private readonly ILogService<ProfessorService> logService;
 
+        public ProfessorService(ILogService<ProfessorService> logService)
+        {
+            this.logService = logService;
         }
         public ServiceResult GetAll()
         {
-            throw new System.NotImplementedException();
+            ServiceResult result = new ServiceResult();
+            try
+            {
+
+            }
+            catch (System.Exception ex)
+            {
+                this.logService.LogError(ex.Message);
+                throw;
+            }
+            return result;
         }
         public ServiceResult GetById(int Id)
         {

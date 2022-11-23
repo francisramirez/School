@@ -8,6 +8,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="School.Service.Services.CourseService">
+    <Position X="7.5" Y="2" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAIAAAAAAAAEAACgAQAAAAIIA=</HashCode>
+      <FileName>Services\CourseService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="School.Service.Contracts.ILoggerService&lt;TService&gt;">
     <Position X="3" Y="0.75" Width="2.25" />
     <TypeIdentifier>
